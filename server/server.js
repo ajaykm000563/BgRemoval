@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from "express"
 import cors from "cors"
-import connectDB from './configs/MongoDB.js';
+import connectDB from './configs/mongodb.js';
 
 
 const port = process.env.PORT || 4000
