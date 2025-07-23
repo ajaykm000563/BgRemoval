@@ -10,22 +10,22 @@ const port = process.env.PORT || 4000;
 const app = express();
 await connectDB();
 
-// 🛑 RAW BODY for Clerk webhooks before any json middleware
-app.post("/api/user/webhooks", bodyParser.raw({ type: "*/*" }), clerkWebHooks);
+// ✅ Use raw body ONLY for Clerk webhooks
+app.post("/api/user/webhooks", bodyParser.raw({ type: "application/json" }), clerkWebHooks);
 
-// ✅ THEN apply express.json
+// ✅ Then JSON and other middlewares
 app.use(express.json());
 app.use(cors());
 
-// API test route
+// Test route
 app.get("/", (req, res) => {
     res.send("API working");
 });
 
-// other routes
+// User routes
 app.use('/api/user', userrouter);
 
-// start server
+// Start server
 app.listen(port, () => {
     console.log(`server is running at port number ${port}`);
 });
